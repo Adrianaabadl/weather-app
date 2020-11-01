@@ -43,6 +43,10 @@ h1 {
   margin-bottom: 0;
 }
 
+#description {
+  text-transform: capitalize;
+}
+
 ul {
   margin: 0;
   padding: 0;
