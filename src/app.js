@@ -1,5 +1,5 @@
 let apiKey = "0e573fd4dea4803d1538fdac2ccb7c50";
-let city = "New York"
+let city = "Santiago de chile";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
 function formatDate(timestamp) {
@@ -22,12 +22,11 @@ function formatDate(timestamp) {
 }
 
 function displayWeather(response) {
-  console.log(response.data);
+  //console.log(response.data);
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
 
   let city = document.querySelector("#city");
-  console.log(response.data.name);
   city.innerHTML = response.data.name;
 
   let description = document.querySelector("#description");
@@ -43,9 +42,6 @@ function displayWeather(response) {
   date.innerHTML = formatDate(response.data.dt * 1000);
 
 }
-
-
-
 
 axios.get(apiUrl).then(displayWeather);
 
