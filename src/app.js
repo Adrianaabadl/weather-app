@@ -1,5 +1,5 @@
 let apiKey = "0e573fd4dea4803d1538fdac2ccb7c50";
-let city = "Santiago de chile";
+let city = "Lima";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
 function formatDate(timestamp) {
@@ -22,7 +22,7 @@ function formatDate(timestamp) {
 }
 
 function displayWeather(response) {
-  //console.log(response.data);
+  //console.log(response.data.weather[0].icon);
   let temperatureElement = document.querySelector("#temperature");
   temperatureElement.innerHTML = Math.round(response.data.main.temp);
 
@@ -40,7 +40,10 @@ function displayWeather(response) {
 
   let date = document.querySelector("#date");
   date.innerHTML = formatDate(response.data.dt * 1000);
-
+  
+  let icon = document.querySelector("#icon");
+  icon.setAttribute("src", `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  icon.setAttribute("alt", response.data.weather[0].description);
 }
 
 axios.get(apiUrl).then(displayWeather);
