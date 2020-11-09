@@ -1,6 +1,4 @@
-let apiKey = "0e573fd4dea4803d1538fdac2ccb7c50";
 let city = "Lima";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
 function formatDate(timestamp) {
   
@@ -46,7 +44,27 @@ function displayWeather(response) {
   icon.setAttribute("alt", response.data.weather[0].description);
 }
 
+
+
+
+function search (city) {
+let apiKey = "0e573fd4dea4803d1538fdac2ccb7c50";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 axios.get(apiUrl).then(displayWeather);
 
+}
+
+search("New York");
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let cityInput = document.querySelector("#city-input");
+  //console.log(cityInput.value);
+search(cityInput.value);
+}
+
+
+let form = document.querySelector("#search-form");
+form.addEventListener("submit", handleSubmit);
 
 
