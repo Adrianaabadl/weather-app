@@ -1,5 +1,3 @@
-let city = "Lima";
-
 function formatDate(timestamp) {
   
   let date = new Date(timestamp);
@@ -22,7 +20,8 @@ function formatDate(timestamp) {
 function displayWeather(response) {
   //console.log(response.data.weather[0].icon);
   let temperatureElement = document.querySelector("#temperature");
-  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  celciusTemperature = response.data.main.temp;
+  temperatureElement.innerHTML = Math.round(celciusTemperature);
 
   let city = document.querySelector("#city");
   city.innerHTML = response.data.name;
@@ -54,7 +53,7 @@ axios.get(apiUrl).then(displayWeather);
 
 }
 
-search("New York");
+
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -63,8 +62,35 @@ function handleSubmit(event) {
 search(cityInput.value);
 }
 
-
 let form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSubmit);
 
+function displayFahrenheitTemperature(event){
+  event.preventDefault(); //to prevent to open the browser
+  let temperature = document.querySelector("#temperature");
+  //remove the class active the take back to the origian style
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let fahrenheitTemperature = ( celciusTemperature * 9 )/5 + 32;
+  temperature.innerHTML = Math.round(fahrenheitTemperature);
 
+}
+
+function displayCelsiusTemperature(event){
+  event.preventDefault(); //to prevent to open the browser
+  let temperature = document.querySelector("#temperature");
+  fahrenheitLink.classList.remove("active");
+  celsiusLink.classList.add("active");
+  temperature.innerHTML = Math.round(celciusTemperature);
+
+}
+
+let celciusTemperature = null;
+
+let fahrenheitLink = document.getElementById("fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+
+let celsiusLink = document.getElementById("celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
+
+search("Santiago de Chile");
