@@ -19,11 +19,8 @@ function formatHours(timestamp) {
     minuts = `0${minutes}`;
   } 
 
-  if (minutes == 0) {
   return `${hours}:${minutes}0`;
-    } else {
-  return `${hours}:${minutes}`;
-  }
+  
 }
 
 function displayWeather(response) {
@@ -54,11 +51,17 @@ function displayWeather(response) {
 
 function displayForecast(response) {
   console.log(response.data.list[0]);
-  forecast = response.data.list[0];
   let forecastElement = document.getElementById("forecast");
-  forecastElement.innerHTML = 
+  forecastElement.innerHTML = null; //reset the elemnt
+  forecast = null;
+  
+
+
+  for (let i = 0; i < 6 ; i++) {
+  forecast = response.data.list[i];
+    forecastElement.innerHTML += 
   `<div class="col-2">
-                <h3>${formatHours(forecast.dt * 1000)}</h3>
+                <h3>${ formatHours(forecast.dt * 1000)}</h3>
                 <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png">
                 <div class="weather-forecast-temperature">
                     <strong>
@@ -67,7 +70,7 @@ function displayForecast(response) {
                     ${Math.round(forecast.main.temp_min)}º
                 </div>
       </div>`
-
+  }
 }
 
 
